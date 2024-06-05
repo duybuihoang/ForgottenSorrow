@@ -9,6 +9,9 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance { get { return instance; } }
 
     [SerializeField] protected Vector3 mouseWorldPos;
+    public Vector3 MouseWorldPos { get { return mouseWorldPos; } }
+
+    [SerializeField] protected bool isMinigame = true;
 
 
     private void Awake()
@@ -20,13 +23,15 @@ public class InputManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        this.getMousePos();
+        if (isMinigame)
+        {
+            this.getMousePos();
+        }
     }
 
     protected virtual void getMousePos()
     {
         this.mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log(Input.mousePosition);
+        this.mouseWorldPos.z = 0;
     }
-
 }
